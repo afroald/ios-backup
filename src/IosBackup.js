@@ -3,7 +3,7 @@ import fs from 'fs';
 import path from 'path';
 
 import KeyBag from './KeyBag';
-import { protectionClasses } from './ProtectionClassKey';
+import FileProtectionClasses from './FileProtectionClasses';
 import loadPlist from './loadPlist';
 
 const zeroIv = Buffer.from([
@@ -68,7 +68,7 @@ class IosBackup {
     const keyBag = await this.getKeyBag();
 
     const wrappedKey = metadata.ManifestKey.slice(4);
-    const key = keyBag.unwrapKeyForClass(wrappedKey, protectionClasses.NSFileProtectionNone);
+    const key = keyBag.unwrapKeyForClass(wrappedKey, FileProtectionClasses.NSFileProtectionNone);
     const decipher = crypto.createDecipheriv('aes-256-cbc', key, zeroIv);
 
     const input = fs.createReadStream(path.resolve(this.paths.backup, 'Manifest.db'));
