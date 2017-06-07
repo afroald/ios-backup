@@ -1,32 +1,9 @@
-import crypto from 'crypto';
 import fs from 'fs';
 import path from 'path';
 
 import KeyBag from './KeyBag';
-import FileProtectionClasses from './FileProtectionClasses';
-import loadPlist from './loadPlist';
-
-const zeroIv = Buffer.from([
-  0x00,
-  0x00,
-  0x00,
-  0x00,
-
-  0x00,
-  0x00,
-  0x00,
-  0x00,
-
-  0x00,
-  0x00,
-  0x00,
-  0x00,
-
-  0x00,
-  0x00,
-  0x00,
-  0x00,
-]);
+import Manifest from './Manifest';
+import plist from './util/plist';
 
 class IosBackup {
   constructor(backupPath) {
@@ -47,33 +24,27 @@ class IosBackup {
 
   async getManifestMetadata() {
     if (!this.manifestMetadata) {
-      this.manifestMetadata = await loadPlist(this.paths.manifestMetadataFile);
+      this.manifestMetadata = await plist.load(this.paths.manifestMetadataFile);
     }
 
     return this.manifestMetadata;
   }
 
   async getKeyBag() {
-    const manifestMetadata = await this.getManifestMetadata();
-
     if (!this.keyBag) {
+      const manifestMetadata = await this.getManifestMetadata();
       this.keyBag = new KeyBag(manifestMetadata.BackupKeyBag);
     }
 
     return this.keyBag;
   }
 
-  async decryptManifestDatabase() {
-    const metadata = await this.getManifestMetadata();
-    const keyBag = await this.getKeyBag();
+  async getManifest() {
+    if (!this.manifest) {
+      this.manifest = await Manifest.fromBackup(this);
+    }
 
-    const wrappedKey = metadata.ManifestKey.slice(4);
-    const key = keyBag.unwrapKeyForClass(wrappedKey, FileProtectionClasses.NSFileProtectionNone);
-    const decipher = crypto.createDecipheriv('aes-256-cbc', key, zeroIv);
-
-    const input = fs.createReadStream(path.resolve(this.paths.backup, 'Manifest.db'));
-    const output = fs.createWriteStream(path.resolve(__dirname, 'Manifest.db'));
-    input.pipe(decipher).pipe(output);
+    return this.manifest;
   }
 }
 
