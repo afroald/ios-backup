@@ -1,4 +1,5 @@
 import crypto from 'crypto';
+import fs from 'fs';
 
 const zeroIv = Buffer.from([
   0x00,
@@ -25,11 +26,16 @@ const zeroIv = Buffer.from([
 const cipherType = 'aes-256-cbc';
 
 export default class FileProtection {
-  constructor(path, key, protectionClass, keyBag) {
+  constructor({ path, key, protectionClass, keyBag }) {
     this.path = path;
+    this.key = keyBag.unwrapKeyForClass(key, protectionClass);
+    this.protectionClass = protectionClass;
+    this.keyBag = keyBag;
+  }
 
-    const unwrappedKey = keyBag.unwrapKeyForClass(key, protectionClass);
-
-    this.decipher = crypto.createDecipheriv(cipherType, unwrappedKey, zeroIv);
+  getStream() {
+    const decipher = crypto.createDecipheriv(cipherType, this.key, zeroIv);
+    const readStream = fs.createReadStream(this.path);
+    return readStream.pipe(decipher);
   }
 }
