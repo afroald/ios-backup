@@ -1,12 +1,12 @@
 {
-  "name": "backup-extractor",
+  "name": "ios-backup",
   "version": "0.0.0",
-  "main": "index.js",
+  "main": "src/IosBackup.js",
   "author": "Roald Hacquebord <roald@hacquebordbuckles.nl>",
   "scripts": {
     "test": "jest"
   },
-  "license": "UNLICENSED",
+  "license": "MIT",
   "devDependencies": {
     "babel-eslint": "^7.2.3",
     "babel-jest": "^20.0.3",
