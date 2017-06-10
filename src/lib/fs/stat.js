@@ -1,15 +1,5 @@
 import fs from 'fs';
+import promisify from '../../util/promisify';
 
-function stat(path) {
-  return new Promise((resolve, reject) => {
-    fs.stat(path, (err, stats) => {
-      if (err) {
-        return reject(err);
-      }
-
-      return resolve(stats);
-    });
-  });
-}
-
+const stat = promisify(fs.stat);
 export default stat;
