@@ -1,15 +1,5 @@
 import fs from 'fs';
+import promisify from '../../util/promisify';
 
-function readFile(...args) {
-  return new Promise((resolve, reject) => {
-    fs.readFile(...args, (error, data) => {
-      if (error) {
-        return reject(error);
-      }
-
-      return resolve(data);
-    })
-  });
-}
-
+const readFile = promisify(fs.readFile);
 export default readFile;

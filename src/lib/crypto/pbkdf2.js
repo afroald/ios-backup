@@ -1,15 +1,5 @@
 import crypto from 'crypto';
+import promisify from '../../util/promisify';
 
-function pbkdf2(...args) {
-  return new Promise((resolve, reject) => {
-    crypto.pbkdf2(...args, (error, key) => {
-      if (error) {
-        return reject(error);
-      }
-
-      return resolve(key);
-    });
-  });
-}
-
+const pbkdf2 = promisify(crypto.pbkdf2);
 export default pbkdf2;
