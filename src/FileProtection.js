@@ -33,9 +33,23 @@ export default class FileProtection {
     this.keyBag = keyBag;
   }
 
-  getStream() {
+  getReadStream() {
     const decipher = crypto.createDecipheriv(cipherType, this.key, zeroIv);
     const readStream = fs.createReadStream(this.path);
     return readStream.pipe(decipher);
   }
 }
+
+export const FileProtectionClasses = {
+  NSFileProtectionComplete: 1,
+  NSFileProtectionCompleteUnlessOpen: 2,
+  NSFileProtectionCompleteUntilFirstUserAuthentication: 3,
+  NSFileProtectionNone: 4,
+  'NSFileProtectionRecover?': 5,
+  kSecAttrAccessibleWhenUnlocked: 6,
+  kSecAttrAccessibleAfterFirstUnlock: 7,
+  kSecAttrAccessibleAlways: 8,
+  kSecAttrAccessibleWhenUnlockedThisDeviceOnly: 9,
+  kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly: 10,
+  kSecAttrAccessibleAlwaysThisDeviceOnly: 11,
+};

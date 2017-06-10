@@ -1,7 +1,7 @@
 {
   "name": "ios-backup",
   "version": "0.0.0",
-  "main": "src/IosBackup.js",
+  "main": "src/Backup.js",
   "author": "Roald Hacquebord <roald@hacquebordbuckles.nl>",
   "scripts": {
     "test": "jest"
@@ -17,13 +17,15 @@
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^5.0.1",
     "eslint-plugin-react": "^7.0.1",
-    "jest": "^20.0.4"
+    "jest": "^20.0.4",
+    "stream-buffers": "^3.0.1"
   },
   "dependencies": {
     "aes-kw": "^1.0.1",
+    "better-sqlite3": "^3.0.3",
+    "is-stream": "^1.1.0",
     "simple-plist": "^0.2.1",
-    "sqlite": "^2.8.0",
-    "temp-write": "^3.3.0"
+    "tempy": "^0.1.0"
   },
   "jest": {
     "testEnvironment": "node",
