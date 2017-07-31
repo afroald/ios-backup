@@ -16,22 +16,22 @@ import Manifest from './Manifest';
  */
 export default function Backup(backupPath, manifestMetadata) {
   const keyBag = new KeyBag(manifestMetadata.BackupKeyBag);
-  let manifest;
+  let backupManifest;
 
   Object.defineProperty(this, 'isEncrypted', {
     value: manifestMetadata.IsEncrypted,
   });
 
   async function getManifest() {
-    if (!manifest) {
-      manifest = await Manifest.fromEncryptedFile(
+    if (!backupManifest) {
+      backupManifest = await Manifest.fromEncryptedFile(
         path.resolve(backupPath, 'Manifest.db'),
         keyBag,
         manifestMetadata.ManifestKey,
       );
     }
 
-    return manifest;
+    return backupManifest;
   }
 
   this.unlock = function unlock(password) {
