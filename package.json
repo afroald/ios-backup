@@ -1,13 +1,16 @@
 {
   "name": "ios-backup",
   "version": "0.0.0",
-  "main": "src/Backup.js",
+  "main": "dist/Backup.js",
   "author": "Roald Hacquebord <roald@hacquebordbuckles.nl>",
   "scripts": {
+    "transpile": "babel src --out-dir dist",
     "test": "jest"
   },
+  "files": ["dist"],
   "license": "MIT",
   "devDependencies": {
+    "babel-cli": "^6.24.1",
     "babel-eslint": "^7.2.3",
     "babel-jest": "^20.0.3",
     "babel-preset-env": "^1.6.0",
@@ -23,12 +26,10 @@
   },
   "dependencies": {
     "aes-kw": "^1.0.1",
+    "better-sqlite3": "^3.0.3",
     "is-stream": "^1.1.0",
     "simple-plist": "^0.2.1",
     "tempy": "^0.1.0"
-  },
-  "peerDependencies": {
-    "better-sqlite3": "^3.0.3"
   },
   "jest": {
     "testEnvironment": "node",
