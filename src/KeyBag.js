@@ -66,15 +66,14 @@ export default class KeyBag {
   }
 
   getClassKey(protectionClass) {
-    const key = this.protectionClassKeys.find(key => {
-      return key.protectionClass === protectionClass;
-    });
+    const protectionClassKey = this.protectionClassKeys
+      .find(key => key.protectionClass === protectionClass);
 
-    if (!key) {
+    if (!protectionClassKey) {
       throw new Error(`No key found for protection class ${protectionClass}`);
     }
 
-    return key;
+    return protectionClassKey;
   }
 
   unwrapKeyForClass(key, protectionClass) {
