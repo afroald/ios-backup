@@ -1,5 +1,5 @@
 # ios-backup [wip]
-A library for working with iOS backups. Work in progress. Definately not finished.
+A library for working with iOS backups. Work in progress. Definitely not finished.
 
 ## Resources
 - <https://stackoverflow.com/a/13793043>
