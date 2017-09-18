@@ -3,7 +3,7 @@ import promisify from './promisify';
 
 const plistUtil = {
   load: promisify(plist.readFile),
-  parse: promisify(plist.parse),
+  parse: plist.parse,
 };
 
 export default plistUtil;
