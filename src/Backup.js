@@ -1,6 +1,7 @@
 import path from 'path';
 import plist from './util/plist';
 
+import FileCollection from './FileCollection';
 import KeyBag from './KeyBag';
 import Manifest from './Manifest';
 
@@ -38,7 +39,7 @@ export default function Backup(backupPath, manifestMetadata) {
 
   this.getFiles = async function getFiles() {
     const manifest = await getManifest();
-    return manifest.files;
+    return new FileCollection(manifest.files);
   };
 }
 
