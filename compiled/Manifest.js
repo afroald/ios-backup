@@ -38,7 +38,8 @@ function Manifest(databasePath) {
         id: file.fileID,
         domain: file.domain,
         path: file.relativePath,
-        plistBlob: file.file
+        flags: file.flags,
+        file: file.file
       }));
     }
   });

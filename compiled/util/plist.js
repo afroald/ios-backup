@@ -16,7 +16,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 const plistUtil = {
   load: (0, _promisify2.default)(_simplePlist2.default.readFile),
-  parse: (0, _promisify2.default)(_simplePlist2.default.parse)
+  parse: _simplePlist2.default.parse
 };
 
 exports.default = plistUtil;

@@ -52,7 +52,7 @@ function Backup(backupPath, manifestMetadata) {
     return keyBag.unlock(password);
   };
 
-  this.files = async function files() {
+  this.getFiles = async function getFiles() {
     const manifest = await getManifest();
     return manifest.files;
   };
