@@ -18,10 +18,6 @@ export default function Backup(backupPath, manifestMetadata) {
   const keyBag = new KeyBag(manifestMetadata.BackupKeyBag);
   let backupManifest;
 
-  Object.defineProperty(this, 'isEncrypted', {
-    value: manifestMetadata.IsEncrypted,
-  });
-
   async function getManifest() {
     if (!backupManifest) {
       backupManifest = await Manifest.fromEncryptedFile(
@@ -33,6 +29,8 @@ export default function Backup(backupPath, manifestMetadata) {
 
     return backupManifest;
   }
+
+  this.isEncrypted = manifestMetadata.IsEncrypted;
 
   this.unlock = function unlock(password) {
     return keyBag.unlock(password);
