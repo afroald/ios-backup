@@ -23,8 +23,8 @@ export default function Backup(backupPath, manifestMetadata) {
     if (!backupManifest) {
       backupManifest = await Manifest.fromEncryptedFile(
         path.resolve(backupPath, 'Manifest.db'),
+        manifestMetadata,
         keyBag,
-        manifestMetadata.ManifestKey,
       );
     }
 

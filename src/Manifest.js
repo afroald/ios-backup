@@ -1,4 +1,6 @@
 import Database from 'better-sqlite3';
+import semver from 'semver';
+
 import File from './File';
 import FileProtection, { FileProtectionClasses } from './FileProtection';
 import SelfDestructingTmpFile from './SelfDestructingTmpFile';
@@ -29,11 +31,15 @@ Manifest.create = async function create(databasePath) {
   return new Manifest(databasePath);
 };
 
-Manifest.fromEncryptedFile = async function fromEncryptedFile(databasePath, keyBag, key) {
+Manifest.fromEncryptedFile = async function fromEncryptedFile(databasePath, metadata, keyBag) {
+  const protectionClass = semver.gt(metadata.Lockdown.ProductVersion, '11.0.0') ?
+    FileProtectionClasses.NSFileProtectionCompleteUntilFirstUserAuthentication :
+    FileProtectionClasses.NSFileProtectionNone;
+
   const protection = new FileProtection({
     path: databasePath,
-    key: key.slice(4),
-    protectionClass: FileProtectionClasses.NSFileProtectionNone,
+    key: metadata.ManifestKey.slice(4), // Remove length tag from key
+    protectionClass,
     keyBag,
   });
 

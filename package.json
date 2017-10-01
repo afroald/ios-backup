@@ -26,6 +26,7 @@
     "aes-kw": "^1.0.1",
     "better-sqlite3": "^4.0.3",
     "is-stream": "^1.1.0",
+    "semver": "^5.4.1",
     "simple-plist": "^0.2.1",
     "tempy": "^0.2.1"
   },
